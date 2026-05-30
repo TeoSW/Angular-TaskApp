@@ -1,27 +1,84 @@
-# UdemyApp
+# ✅ Task Management App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.3.
+> An Angular application for managing tasks per user — select a user, view their tasks, add new ones, and mark them as complete.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 📌 Description
 
-## Code scaffolding
+A multi-component Angular app that implements a simple task management system. Users are listed in a sidebar; selecting one reveals their personal task list. New tasks can be added via a modal dialog, and existing ones can be marked as completed.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## 🧩 Components
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+| Component | Role |
+|---|---|
+| `app-header` | Top navigation bar with logo and app title |
+| `app-user` | User card with avatar and selection highlight |
+| `app-tasks` | Task list for the selected user |
+| `app-task` | Individual task card (title, due date, summary) |
+| `app-new-task` | Modal dialog form for adding a new task |
+| `app-card` | Reusable card wrapper component |
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🔁 App Flow
 
-## Running end-to-end tests
+```
+Select user → View their tasks → Add task (modal) → Complete task
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. Users are rendered in a sidebar via `@for`
+2. Clicking a user sets `selectedUserId` and displays their tasks
+3. Clicking **Add Task** opens a `<dialog>` modal
+4. Submitting the form creates a new task linked to the user
+5. Clicking **Complete** removes the task from the list
 
-## Further help
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🛠️ Tech Stack
+
+![Angular](https://img.shields.io/badge/Angular-18-red?logo=angular)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue?logo=typescript)
+
+| Feature | Implementation |
+|---|---|
+| Component input | `@Input()` — `user`, `userId`, `name`, `task`, `selected` |
+| Component output | `@Output()` — `select`, `close` |
+| Two-way binding | `ngModel` (title, summary, due date) |
+| Conditional rendering | `@if` / `@else` |
+| List rendering | `@for` with `track` |
+| Class binding | `[class.active]="selected"` |
+| Date formatting | `date: 'fullDate'` pipe |
+| Modal | Native HTML `<dialog>` + backdrop overlay |
+
+---
+
+## ⚙️ Installation & Usage
+
+```bash
+npm install
+ng serve
+```
+
+Then open `http://localhost:4200` in your browser.
+
+---
+
+## 🗂️ Project Structure
+
+```
+📁 task-management/
+├── src/
+│   └── app/
+│       ├── app.component.*          # Root — user list + task panel
+│       ├── header/                  # App header
+│       ├── user/                    # User card component
+│       ├── tasks/                   # Task list component
+│       ├── task/                    # Single task card
+│       ├── new-task/                # Add task modal
+│       └── card/                    # Reusable card wrapper
+└── public/
+    └── users/                       # User avatar images
+```
